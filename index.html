@@ -332,6 +332,27 @@
             transform: scale(1.1);
         }
 
+        .rest-adjust {
+            width: 28px;
+            height: 28px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--fg-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+
+        .rest-adjust:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         #rest-time {
             font-family: var(--font-display);
             font-size: 1.25rem;
@@ -1091,8 +1112,10 @@
                     <div class="rest-timer-section">
                         <span class="rest-label">Rest</span>
                         <div class="rest-timer">
-                            <button id="rest-timer-btn" aria-label="Start rest timer">▶</button>
+                            <button id="rest-decrease" class="rest-adjust" aria-label="Decrease 30 sec">−</button>
                             <span id="rest-time">3:00</span>
+                            <button id="rest-increase" class="rest-adjust" aria-label="Increase 30 sec">+</button>
+                            <button id="rest-timer-btn" aria-label="Start rest timer">▶</button>
                             <span id="rest-countdown">tap to start</span>
                         </div>
                     </div>
@@ -1699,10 +1722,14 @@
                 restInterval = null;
             }
             restTimeLeft = state.settings?.compoundRest || 180;
+            updateRestTimerDisplay();
+            document.getElementById('rest-countdown').textContent = 'tap to start';
+        }
+
+        function updateRestTimerDisplay() {
             const mins = Math.floor(restTimeLeft / 60);
             const secs = restTimeLeft % 60;
             document.getElementById('rest-time').textContent = `${mins}:${String(secs).padStart(2, '0')}`;
-            document.getElementById('rest-countdown').textContent = 'tap to start';
         }
 
         document.getElementById('rest-timer-btn').addEventListener('click', () => {
@@ -1711,6 +1738,17 @@
             } else {
                 startRestTimer();
             }
+        });
+
+        // Rest time adjustment buttons
+        document.getElementById('rest-decrease').addEventListener('click', () => {
+            restTimeLeft = Math.max(30, restTimeLeft - 30);
+            updateRestTimerDisplay();
+        });
+
+        document.getElementById('rest-increase').addEventListener('click', () => {
+            restTimeLeft = Math.min(600, restTimeLeft + 30);
+            updateRestTimerDisplay();
         });
 
         // Navigation
