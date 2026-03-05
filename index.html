@@ -429,6 +429,32 @@
             font-weight: 600;
         }
 
+        .exercise-targets-mobile {
+            display: none;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--fg-muted);
+            gap: 0.75rem;
+        }
+
+        .exercise-targets-mobile span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .exercise-targets {
+                display: none;
+            }
+
+            .exercise-targets-mobile {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+
         .exercise-toggle {
             width: 32px;
             height: 32px;
@@ -1006,8 +1032,10 @@
                 display: none;
             }
 
-            .exercise-targets {
-                display: none;
+            .exercise-targets-mobile {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
             }
 
             .exercise-summary {
@@ -1340,6 +1368,10 @@
                             <dd><span class="value">${exercise.sets}</span> sets</dd>
                             <dd><span class="value">${exercise.reps}</span> reps</dd>
                             <dd><span class="value">${exercise.rest}</span> rest</dd>
+                        </div>
+                        <div class="exercise-targets-mobile">
+                            <span>${exercise.sets} sets × ${exercise.reps} reps</span>
+                            <span>${exercise.rest} rest</span>
                         </div>
                         <button class="exercise-toggle" aria-label="Toggle complete">${isCompleted ? '✓' : ''}</button>
                     </div>
