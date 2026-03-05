@@ -1390,8 +1390,13 @@
                     } else {
                         volumeDisplay.innerHTML = '';
                     }
+                });
 
-                    updateExerciseCard(card, exerciseName);
+                // Update summary on blur
+                input.addEventListener('blur', (e) => {
+                    const card = e.target.closest('.exercise-card');
+                    const exerciseName = card.dataset.exercise;
+                    updateSummaryOnly(card, exerciseName);
                 });
             });
 
@@ -1413,6 +1418,43 @@
             newCard.innerHTML = renderExerciseCard(exercise);
             card.replaceWith(newCard.firstElementChild);
             attachExerciseListeners();
+        }
+
+        function updateSummaryOnly(card, exerciseName) {
+            const data = getExerciseData(state.currentWeek, state.currentDay, exerciseName);
+            const summary = calculateSummary(data.sets);
+            const isCompleted = summary && summary.completedSets > 0;
+
+            // Update card completion state
+            card.classList.toggle('completed', isCompleted);
+
+            // Update toggle button
+            const toggleBtn = card.querySelector('.exercise-toggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = isCompleted ? '✓' : '';
+            }
+
+            // Update or create summary section
+            let summarySection = card.querySelector('.exercise-summary');
+            if (summary) {
+                const summaryHtml = `
+                    <div class="summary-stat"><dt>Top Wt</dt><dd>${summary.topWeight}</dd></div>
+                    <div class="summary-stat"><dt>Best Reps</dt><dd>${summary.bestReps}</dd></div>
+                    <div class="summary-stat"><dt>Total Reps</dt><dd>${summary.totalReps}</dd></div>
+                    <div class="summary-stat"><dt>Volume</dt><dd class="accent">${summary.volume.toLocaleString()}</dd></div>
+                `;
+                if (summarySection) {
+                    summarySection.innerHTML = summaryHtml;
+                } else {
+                    const setsContainer = card.querySelector('.exercise-sets');
+                    summarySection = document.createElement('div');
+                    summarySection.className = 'exercise-summary';
+                    summarySection.innerHTML = summaryHtml;
+                    setsContainer.after(summarySection);
+                }
+            } else if (summarySection) {
+                summarySection.remove();
+            }
         }
 
         function renderProgramView() {
