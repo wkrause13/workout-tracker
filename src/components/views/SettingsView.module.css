@@ -1,0 +1,265 @@
+/* src/components/views/SettingsView.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 24px 0;
+}
+
+/* Sections */
+.section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Setting Rows */
+.settingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.settingRow:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.settingLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  margin-right: 16px;
+}
+
+.settingName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.settingDescription {
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+
+/* Input with Unit */
+.inputWithUnit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timerInput {
+  width: 80px;
+}
+
+.timerInput input {
+  text-align: center;
+}
+
+.unit {
+  font-size: 14px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+/* Data Management */
+.dataButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dataButton {
+  width: 100%;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.importStatus {
+  padding: 12px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  text-align: center;
+}
+
+.importStatus.success {
+  background: rgba(0, 170, 68, 0.15);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.importStatus.error {
+  background: rgba(255, 68, 68, 0.15);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+/* Danger Zone */
+.dangerZone {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.dangerTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--danger);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px 0;
+}
+
+.confirmClear {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.confirmText {
+  font-size: 14px;
+  color: var(--fg-muted);
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.confirmButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dangerButton {
+  background: var(--danger) !important;
+  color: #fff !important;
+}
+
+.dangerButton:hover {
+  background: #cc3333 !important;
+}
+
+.clearButton {
+  width: 100%;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+}
+
+.clearButton:hover {
+  background: rgba(255, 68, 68, 0.1) !important;
+}
+
+/* About Section */
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.aboutRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aboutLabel {
+  font-size: 14px;
+  color: var(--fg-muted);
+}
+
+.aboutValue {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.githubLink {
+  display: inline-block;
+  padding: 10px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 8px;
+  transition: all 0.15s ease;
+}
+
+.githubLink:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .section {
+    padding: 16px;
+  }
+
+  .settingRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .settingLabel {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .inputWithUnit {
+    width: 100%;
+  }
+
+  .timerInput {
+    flex: 1;
+  }
+
+  .timerInput input {
+    width: 100%;
+  }
+
+  .confirmButtons {
+    flex-direction: column;
+  }
+
+  .confirmButtons button {
+    width: 100%;
+  }
+}
