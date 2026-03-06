@@ -73,8 +73,8 @@ function SessionExerciseCard({ exercise }: { exercise: SessionExercise }) {
 
   const handleExerciseClick = () => {
     viewExerciseDetail({
-      id: exercise.exerciseId,
-      name: exercise.exerciseName,
+      exerciseId: exercise.exerciseId,
+      exerciseName: exercise.exerciseName,
     });
   };
 

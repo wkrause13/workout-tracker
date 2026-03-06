@@ -14,8 +14,8 @@ function AppContent() {
     return (
       <Layout>
         <ExerciseDetailView
-          exerciseId={selectedExercise.id}
-          exerciseName={selectedExercise.name}
+          exerciseId={selectedExercise.exerciseId}
+          exerciseName={selectedExercise.exerciseName}
           onBack={clearExerciseDetail}
         />
       </Layout>

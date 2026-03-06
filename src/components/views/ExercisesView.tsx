@@ -399,7 +399,7 @@ function ExerciseCard({
             <div className={styles.cardHeader}>
               <button
                 className={styles.exerciseNameButton}
-                onClick={() => onViewProgress(exercise)}
+                onClick={() => onViewProgress?.(exercise)}
                 aria-label={`View progress for ${exercise.name}`}
               >
                 <h4 className={styles.exerciseName}>{exercise.name}</h4>

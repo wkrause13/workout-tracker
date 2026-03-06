@@ -61,7 +61,7 @@ function getInitialState(): AppState {
 
 const initialState: AppState = getInitialState();
 
-interface SelectedExercise {
+export interface SelectedExercise {
   exerciseId: string;
   exerciseName: string;
 }
