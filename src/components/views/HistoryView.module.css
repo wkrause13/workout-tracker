@@ -1,0 +1,421 @@
+/* src/components/views/HistoryView.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 4px 0;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.emptyIcon {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 8px 0;
+}
+
+.emptyMessage {
+  color: var(--text-muted);
+  font-size: 14px;
+  max-width: 280px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Session List */
+.sessionList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Session Card */
+.sessionCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.sessionCard:hover {
+  border-color: var(--border-active);
+}
+
+.sessionCard.expanded {
+  border-color: var(--accent);
+}
+
+.sessionCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.sessionCardHeader:hover {
+  background: var(--bg-elevated);
+}
+
+.sessionCardHeader:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.sessionMainInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sessionDate {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sessionName {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0;
+}
+
+.sessionMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sessionStats {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.sessionVolume {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.expandIcon {
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expandIcon.rotated {
+  transform: rotate(180deg);
+}
+
+/* Session Details */
+.sessionDetails {
+  padding: 0 16px 16px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.sessionFullDate {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.noExercises {
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+  padding: 24px;
+  background: var(--surface);
+  border-radius: 6px;
+  margin: 0;
+}
+
+/* Exercises List */
+.exercisesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.exerciseCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.exerciseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.exerciseName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0;
+}
+
+.topWeight {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Sets */
+.setsList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.setItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  background: var(--surface-dark);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.setItem.warmupSet {
+  opacity: 0.6;
+}
+
+.setNumber {
+  color: var(--text-muted);
+}
+
+.setDetails {
+  color: var(--fg);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Exercise Stats */
+.exerciseStats {
+  display: flex;
+  gap: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.exerciseNotes {
+  margin-top: 10px;
+  padding: 8px;
+  background: var(--surface-dark);
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Session Totals */
+.sessionTotals {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.totalsTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 12px 0;
+}
+
+.totalsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.totalItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.totalValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.totalLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Session Notes */
+.sessionNotes {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.notesTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 8px 0;
+}
+
+.sessionNotes p {
+  font-size: 14px;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Session Actions */
+.sessionActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+.deleteButton {
+  color: #f87171 !important;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background: rgba(248, 113, 113, 0.1) !important;
+}
+
+.deleteConfirm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px;
+  background: rgba(248, 113, 113, 0.1);
+  border-radius: 6px;
+}
+
+.deleteConfirmText {
+  font-size: 14px;
+  color: #f87171;
+}
+
+.deleteConfirmButtons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .sessionCardHeader {
+    padding: 12px;
+  }
+
+  .sessionName {
+    font-size: 15px;
+  }
+
+  .sessionMeta {
+    gap: 8px;
+  }
+
+  .sessionStats,
+  .sessionVolume {
+    font-size: 12px;
+  }
+
+  .totalsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .totalValue {
+    font-size: 16px;
+  }
+
+  .totalLabel {
+    font-size: 10px;
+  }
+}
