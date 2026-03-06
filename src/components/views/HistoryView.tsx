@@ -66,14 +66,28 @@ function calculateSessionTotalReps(session: Session): number {
 }
 
 function SessionExerciseCard({ exercise }: { exercise: SessionExercise }) {
+  const { viewExerciseDetail } = useApp();
   const topWeight = getTopWeight(exercise.sets);
   const totalReps = getTotalReps(exercise.sets);
   const volume = calculateExerciseVolume(exercise.sets);
 
+  const handleExerciseClick = () => {
+    viewExerciseDetail({
+      id: exercise.exerciseId,
+      name: exercise.exerciseName,
+    });
+  };
+
   return (
     <div className={styles.exerciseCard}>
       <div className={styles.exerciseHeader}>
-        <h4 className={styles.exerciseName}>{exercise.exerciseName}</h4>
+        <button
+          className={styles.exerciseNameButton}
+          onClick={handleExerciseClick}
+          aria-label={`View details for ${exercise.exerciseName}`}
+        >
+          <h4 className={styles.exerciseName}>{exercise.exerciseName}</h4>
+        </button>
         {topWeight !== null && (
           <span className={styles.topWeight}>Top: {topWeight} lbs</span>
         )}

@@ -61,6 +61,11 @@ function getInitialState(): AppState {
 
 const initialState: AppState = getInitialState();
 
+interface SelectedExercise {
+  exerciseId: string;
+  exerciseName: string;
+}
+
 interface AppContextType extends AppState {
   // Session actions
   startSession: (templateId?: string) => string;
@@ -89,6 +94,11 @@ interface AppContextType extends AppState {
   // View state
   currentView: string;
   setCurrentView: (view: string) => void;
+
+  // Exercise detail navigation
+  selectedExercise: { exerciseId: string; exerciseName: string } | null;
+  viewExerciseDetail: (exercise: { exerciseId: string; exerciseName: string }) => void;
+  clearExerciseDetail: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -96,6 +106,16 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useLocalStorage<AppState>(STORAGE_KEY, initialState);
   const [currentView, setCurrentView] = useState('today');
+  const [selectedExercise, setSelectedExercise] = useState<{ exerciseId: string; exerciseName: string } | null>(null);
+
+  // Exercise detail navigation
+  const viewExerciseDetail = useCallback((exercise: { exerciseId: string; exerciseName: string }) => {
+    setSelectedExercise(exercise);
+  }, []);
+
+  const clearExerciseDetail = useCallback(() => {
+    setSelectedExercise(null);
+  }, []);
 
   // Session actions
   const startSession = useCallback((templateId?: string): string => {
@@ -246,6 +266,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     importData,
     currentView,
     setCurrentView,
+    selectedExercise,
+    viewExerciseDetail,
+    clearExerciseDetail,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

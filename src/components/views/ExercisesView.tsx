@@ -25,7 +25,7 @@ const emptyExercise: EditingExercise = {
 type CategoryFilter = 'all' | 'compound' | 'accessory';
 
 export function ExercisesView() {
-  const { exercises, addExercise, updateExercise, deleteExercise } = useApp();
+  const { exercises, addExercise, updateExercise, deleteExercise, viewExerciseDetail } = useApp();
   const [editingExercise, setEditingExercise] = useState<EditingExercise | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -116,6 +116,13 @@ export function ExercisesView() {
   const handleDelete = (exerciseId: string) => {
     deleteExercise(exerciseId);
     setDeleteConfirmId(null);
+  };
+
+  const handleViewProgress = (exercise: Exercise) => {
+    viewExerciseDetail({
+      exerciseId: exercise.id,
+      exerciseName: exercise.name,
+    });
   };
 
   const handleFieldChange = (field: keyof EditingExercise, value: string) => {
@@ -307,6 +314,7 @@ export function ExercisesView() {
                     isDeleting={deleteConfirmId === exercise.id}
                     onConfirmDelete={handleDelete}
                     onCancelDelete={() => setDeleteConfirmId(null)}
+                    onViewProgress={handleViewProgress}
                   />
                 ))}
               </div>
@@ -331,6 +339,7 @@ export function ExercisesView() {
                     isDeleting={deleteConfirmId === exercise.id}
                     onConfirmDelete={handleDelete}
                     onCancelDelete={() => setDeleteConfirmId(null)}
+                    onViewProgress={handleViewProgress}
                   />
                 ))}
               </div>
@@ -350,6 +359,7 @@ interface ExerciseCardProps {
   isDeleting: boolean;
   onConfirmDelete: (id: string) => void;
   onCancelDelete: () => void;
+  onViewProgress?: (exercise: Exercise) => void;
 }
 
 function ExerciseCard({
@@ -359,6 +369,7 @@ function ExerciseCard({
   isDeleting,
   onConfirmDelete,
   onCancelDelete,
+  onViewProgress,
 }: ExerciseCardProps) {
   return (
     <div className={styles.exerciseCard}>
@@ -386,7 +397,13 @@ function ExerciseCard({
         <>
           <div className={styles.cardContent}>
             <div className={styles.cardHeader}>
-              <h4 className={styles.exerciseName}>{exercise.name}</h4>
+              <button
+                className={styles.exerciseNameButton}
+                onClick={() => onViewProgress(exercise)}
+                aria-label={`View progress for ${exercise.name}`}
+              >
+                <h4 className={styles.exerciseName}>{exercise.name}</h4>
+              </button>
               <span className={`${styles.categoryBadge} ${styles[exercise.category]}`}>
                 {exercise.category}
               </span>

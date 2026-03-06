@@ -3,10 +3,24 @@
 import { AppProvider, useApp } from './context/AppContext';
 import { Layout } from './components/Layout';
 import { TodayView } from './components/views/TodayView';
+import { ExerciseDetailView } from './components/views/ExerciseDetailView';
 import './App.css';
 
 function AppContent() {
-  const { currentView } = useApp();
+  const { currentView, selectedExercise, clearExerciseDetail } = useApp();
+
+  // If we have a selected exercise, show the detail view
+  if (selectedExercise) {
+    return (
+      <Layout>
+        <ExerciseDetailView
+          exerciseId={selectedExercise.id}
+          exerciseName={selectedExercise.name}
+          onBack={clearExerciseDetail}
+        />
+      </Layout>
+    );
+  }
 
   let content;
   switch (currentView) {
