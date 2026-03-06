@@ -6,9 +6,10 @@ import type { AppState, Session, Template, Exercise, Settings, TemplateExercise 
 import { generateId } from '../utils/helpers';
 import { defaultExercises, defaultTemplates } from '../data/seedData';
 
-const STORAGE_KEY = 'compound-first-v2';
+// Storage key - also referenced in src/components/views/SettingsView.tsx
+export const STORAGE_KEY = 'compound-first-v2';
 
-const defaultSettings: Settings = {
+export const defaultSettings: Settings = {
   theme: 'dark',
   units: 'lbs',
   compoundRestSeconds: 180,
@@ -240,8 +241,38 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const importData = useCallback((json: string): boolean => {
     try {
-      const data = JSON.parse(json) as AppState;
-      setState(data);
+      const data = JSON.parse(json);
+
+      // Validate required structure
+      if (typeof data !== 'object' || data === null) {
+        return false;
+      }
+
+      // Ensure required properties exist with correct types
+      const validatedData: AppState = {
+        exercises: Array.isArray(data.exercises) ? data.exercises : [],
+        sessions: Array.isArray(data.sessions) ? data.sessions : [],
+        templates: Array.isArray(data.templates) ? data.templates : [],
+        settings: {
+          theme: (data.settings?.theme === 'light' || data.settings?.theme === 'dark')
+            ? data.settings.theme
+            : defaultSettings.theme,
+          units: (data.settings?.units === 'lbs' || data.settings?.units === 'kg')
+            ? data.settings.units
+            : defaultSettings.units,
+          compoundRestSeconds: typeof data.settings?.compoundRestSeconds === 'number'
+            ? data.settings.compoundRestSeconds
+            : defaultSettings.compoundRestSeconds,
+          assistanceRestSeconds: typeof data.settings?.assistanceRestSeconds === 'number'
+            ? data.settings.assistanceRestSeconds
+            : defaultSettings.assistanceRestSeconds,
+        },
+        currentSessionId: typeof data.currentSessionId === 'string'
+          ? data.currentSessionId
+          : undefined,
+      };
+
+      setState(validatedData);
       return true;
     } catch {
       return false;

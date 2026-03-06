@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
+import { STORAGE_KEY } from '../../context/AppContext';
 import { Button } from '../common/Button';
 import { Input } from '../common/Input';
 import styles from './SettingsView.module.css';
@@ -29,16 +30,18 @@ export function SettingsView() {
   };
 
   // Timer defaults
-  const handleCompoundRestChange = (value: string) => {
-    const numValue = parseInt(value, 10);
-    if (!isNaN(numValue) && numValue > 0) {
+  const handleCompoundRestChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const numValue = value === '' ? 0 : parseInt(value, 10);
+    if (!isNaN(numValue) && numValue >= 30 && numValue <= 600) {
       updateSettings({ compoundRestSeconds: numValue });
     }
   };
 
-  const handleAssistanceRestChange = (value: string) => {
-    const numValue = parseInt(value, 10);
-    if (!isNaN(numValue) && numValue > 0) {
+  const handleAssistanceRestChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const numValue = value === '' ? 0 : parseInt(value, 10);
+    if (!isNaN(numValue) && numValue >= 30 && numValue <= 300) {
       updateSettings({ assistanceRestSeconds: numValue });
     }
   };
@@ -71,9 +74,19 @@ export function SettingsView() {
       const content = e.target?.result as string;
       const success = importData(content);
       if (success) {
+        // Read the newly imported settings from localStorage to apply theme
+        try {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          if (stored) {
+            const newData = JSON.parse(stored);
+            if (newData.settings?.theme) {
+              document.documentElement.setAttribute('data-theme', newData.settings.theme);
+            }
+          }
+        } catch {
+          // Ignore errors
+        }
         setImportStatus({ type: 'success', message: 'Data imported successfully!' });
-        // Update theme in DOM if it changed
-        document.documentElement.setAttribute('data-theme', settings.theme);
       } else {
         setImportStatus({ type: 'error', message: 'Failed to import data. Invalid file format.' });
       }
@@ -94,7 +107,7 @@ export function SettingsView() {
 
   // Clear all data
   const handleClearData = () => {
-    localStorage.removeItem('compound-first-v2');
+    localStorage.removeItem(STORAGE_KEY);
     window.location.reload();
   };
 
@@ -154,7 +167,7 @@ export function SettingsView() {
             <Input
               type="number"
               value={settings.compoundRestSeconds}
-              onChange={(e) => handleCompoundRestChange(e.target.value)}
+              onChange={handleCompoundRestChange}
               min={30}
               max={600}
               aria-label="Compound exercise rest time in seconds"
@@ -175,7 +188,7 @@ export function SettingsView() {
             <Input
               type="number"
               value={settings.assistanceRestSeconds}
-              onChange={(e) => handleAssistanceRestChange(e.target.value)}
+              onChange={handleAssistanceRestChange}
               min={30}
               max={300}
               aria-label="Accessory exercise rest time in seconds"
