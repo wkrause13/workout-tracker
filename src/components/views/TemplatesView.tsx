@@ -1,6 +1,6 @@
 // src/components/views/TemplatesView.tsx
 
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { useApp } from '../../context/AppContext';
 import type { Template, TemplateExercise } from '../../types';
 import { Button } from '../common/Button';
@@ -28,6 +28,7 @@ export function TemplatesView() {
   const [editingTemplate, setEditingTemplate] = useState<EditingTemplate | null>(null);
   const [expandedTemplateId, setExpandedTemplateId] = useState<string | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const exerciseIdBase = useId();
 
   const handleCreateNew = () => {
     setEditingTemplate({
@@ -161,6 +162,7 @@ export function TemplatesView() {
                         className={styles.removeButton}
                         onClick={() => handleRemoveExercise(index)}
                         type="button"
+                        aria-label={`Remove ${exercise.exerciseName || `exercise ${index + 1}`}`}
                       >
                         Remove
                       </button>
@@ -168,10 +170,11 @@ export function TemplatesView() {
 
                     <div className={styles.exerciseFields}>
                       <div className={styles.fieldGroup}>
-                        <label className={styles.fieldLabel}>Exercise Name</label>
+                        <label className={styles.fieldLabel} htmlFor={exerciseIdBase + '-' + index + '-exerciseName'}>Exercise Name</label>
                         <div className={styles.inputWithDropdown}>
                           <input
                             type="text"
+                            id={exerciseIdBase + '-' + index + '-exerciseName'}
                             className={styles.textField}
                             value={exercise.exerciseName}
                             onChange={(e) => handleExerciseChange(index, 'exerciseName', e.target.value)}
@@ -188,9 +191,10 @@ export function TemplatesView() {
 
                       <div className={styles.fieldRow}>
                         <div className={styles.fieldGroup}>
-                          <label className={styles.fieldLabel}>Target Sets</label>
+                          <label className={styles.fieldLabel} htmlFor={exerciseIdBase + '-' + index + '-targetSets'}>Target Sets</label>
                           <input
                             type="text"
+                            id={exerciseIdBase + '-' + index + '-targetSets'}
                             className={styles.textField}
                             value={exercise.targetSets || ''}
                             onChange={(e) => handleExerciseChange(index, 'targetSets', e.target.value)}
@@ -199,9 +203,10 @@ export function TemplatesView() {
                         </div>
 
                         <div className={styles.fieldGroup}>
-                          <label className={styles.fieldLabel}>Target Reps</label>
+                          <label className={styles.fieldLabel} htmlFor={exerciseIdBase + '-' + index + '-targetReps'}>Target Reps</label>
                           <input
                             type="text"
+                            id={exerciseIdBase + '-' + index + '-targetReps'}
                             className={styles.textField}
                             value={exercise.targetReps || ''}
                             onChange={(e) => handleExerciseChange(index, 'targetReps', e.target.value)}
@@ -210,9 +215,10 @@ export function TemplatesView() {
                         </div>
 
                         <div className={styles.fieldGroup}>
-                          <label className={styles.fieldLabel}>Rest (sec)</label>
+                          <label className={styles.fieldLabel} htmlFor={exerciseIdBase + '-' + index + '-restSeconds'}>Rest (sec)</label>
                           <input
                             type="number"
+                            id={exerciseIdBase + '-' + index + '-restSeconds'}
                             className={styles.textField}
                             value={exercise.restSeconds || ''}
                             onChange={(e) => handleExerciseChange(index, 'restSeconds', e.target.value ? parseInt(e.target.value) : undefined)}
@@ -222,8 +228,9 @@ export function TemplatesView() {
                       </div>
 
                       <div className={styles.fieldGroup}>
-                        <label className={styles.fieldLabel}>Priority</label>
+                        <label className={styles.fieldLabel} htmlFor={exerciseIdBase + '-' + index + '-priority'}>Priority</label>
                         <select
+                          id={exerciseIdBase + '-' + index + '-priority'}
                           className={styles.selectField}
                           value={exercise.priority}
                           onChange={(e) => handleExerciseChange(index, 'priority', e.target.value as 'main' | 'support' | 'optional')}
@@ -235,8 +242,9 @@ export function TemplatesView() {
                       </div>
 
                       <div className={styles.fieldGroup}>
-                        <label className={styles.fieldLabel}>Notes (optional)</label>
+                        <label className={styles.fieldLabel} htmlFor={exerciseIdBase + '-' + index + '-notes'}>Notes (optional)</label>
                         <textarea
+                          id={exerciseIdBase + '-' + index + '-notes'}
                           className={styles.textArea}
                           value={exercise.notes || ''}
                           onChange={(e) => handleExerciseChange(index, 'notes', e.target.value)}
@@ -327,6 +335,17 @@ export function TemplatesView() {
                     onClick={() => setExpandedTemplateId(
                       expandedTemplateId === template.id ? null : template.id
                     )}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={expandedTemplateId === template.id}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setExpandedTemplateId(
+                          expandedTemplateId === template.id ? null : template.id
+                        );
+                      }
+                    }}
                   >
                     <div className={styles.templateInfo}>
                       <h3 className={styles.templateName}>{template.name}</h3>
