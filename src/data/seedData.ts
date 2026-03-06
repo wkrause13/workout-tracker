@@ -25,71 +25,59 @@ export interface SeedTemplate {
 // Default exercises with common workout movements
 export const defaultExercises: SeedExercise[] = [
   // Compound exercises
-  { name: 'Squat', category: 'compound', muscleGroups: ['quads', 'glutes', 'hamstrings'] },
-  { name: 'Bench Press', category: 'compound', muscleGroups: ['chest', 'shoulders', 'triceps'] },
-  { name: 'Deadlift', category: 'compound', muscleGroups: ['back', 'glutes', 'hamstrings'] },
+  { name: 'Back Squat', category: 'compound', muscleGroups: ['quads', 'glutes'] },
+  { name: 'Barbell Bench Press', category: 'compound', muscleGroups: ['chest', 'shoulders', 'triceps'] },
+  { name: 'Chest-Supported Row', category: 'compound', muscleGroups: ['back', 'biceps'] },
+  { name: 'Romanian Deadlift', category: 'compound', muscleGroups: ['hamstrings', 'glutes'] },
+  { name: 'Trap Bar Deadlift', category: 'compound', muscleGroups: ['back', 'glutes', 'hamstrings'] },
   { name: 'Overhead Press', category: 'compound', muscleGroups: ['shoulders', 'triceps'] },
+  { name: 'Pull-ups', category: 'compound', muscleGroups: ['back', 'biceps'] },
+  { name: 'Lat Pulldown', category: 'compound', muscleGroups: ['back', 'biceps'] },
+  { name: 'Front Squat', category: 'compound', muscleGroups: ['quads', 'core'] },
+  { name: 'Incline Bench Press', category: 'compound', muscleGroups: ['chest', 'shoulders'] },
   { name: 'Barbell Row', category: 'compound', muscleGroups: ['back', 'biceps'] },
-  { name: 'Pull-up', category: 'compound', muscleGroups: ['back', 'biceps'] },
-  { name: 'Dip', category: 'compound', muscleGroups: ['chest', 'triceps'] },
-  { name: 'Incline Bench Press', category: 'compound', muscleGroups: ['chest', 'shoulders', 'triceps'] },
-  { name: 'Front Squat', category: 'compound', muscleGroups: ['quads', 'glutes'] },
-  { name: 'Romanian Deadlift', category: 'compound', muscleGroups: ['hamstrings', 'glutes', 'back'] },
 
   // Accessory exercises
-  { name: 'Bicep Curl', category: 'accessory', muscleGroups: ['biceps'] },
-  { name: 'Tricep Extension', category: 'accessory', muscleGroups: ['triceps'] },
-  { name: 'Lateral Raise', category: 'accessory', muscleGroups: ['shoulders'] },
-  { name: 'Face Pull', category: 'accessory', muscleGroups: ['rear delts', 'traps'] },
   { name: 'Leg Curl', category: 'accessory', muscleGroups: ['hamstrings'] },
-  { name: 'Leg Extension', category: 'accessory', muscleGroups: ['quads'] },
-  { name: 'Calf Raise', category: 'accessory', muscleGroups: ['calves'] },
-  { name: 'Lat Pulldown', category: 'accessory', muscleGroups: ['back', 'biceps'] },
-  { name: 'Cable Row', category: 'accessory', muscleGroups: ['back', 'biceps'] },
-  { name: 'Chest Fly', category: 'accessory', muscleGroups: ['chest'] },
-  { name: 'Hammer Curl', category: 'accessory', muscleGroups: ['biceps', 'forearms'] },
-  { name: 'Skull Crusher', category: 'accessory', muscleGroups: ['triceps'] },
-  { name: 'Shrug', category: 'accessory', muscleGroups: ['traps'] },
-  { name: 'Hanging Leg Raise', category: 'accessory', muscleGroups: ['abs'] },
-  { name: 'Plank', category: 'accessory', muscleGroups: ['abs', 'core'] },
+  { name: 'Split Squat', category: 'accessory', muscleGroups: ['quads', 'glutes'] },
+  { name: 'Leg Press', category: 'accessory', muscleGroups: ['quads'] },
+  { name: 'Ab Wheel', category: 'accessory', muscleGroups: ['core'] },
+  { name: 'Dead Bug', category: 'accessory', muscleGroups: ['core'] },
+  { name: 'Hip Thrust', category: 'accessory', muscleGroups: ['glutes'] },
 ];
 
-// Default Program A: Push (Chest, Shoulders, Triceps)
+// Default Program A
 export const programA: SeedTemplate = {
-  name: 'Program A - Push',
+  name: 'Program A',
   exercises: [
-    { exerciseName: 'Bench Press', targetSets: '3', targetReps: '5', restSeconds: 180, priority: 'main' },
-    { exerciseName: 'Overhead Press', targetSets: '3', targetReps: '8', restSeconds: 120, priority: 'support' },
-    { exerciseName: 'Incline Bench Press', targetSets: '3', targetReps: '8', restSeconds: 90, priority: 'support' },
-    { exerciseName: 'Tricep Extension', targetSets: '3', targetReps: '12', restSeconds: 60, priority: 'optional' },
-    { exerciseName: 'Lateral Raise', targetSets: '3', targetReps: '12', restSeconds: 60, priority: 'optional' },
-    { exerciseName: 'Face Pull', targetSets: '3', targetReps: '15', restSeconds: 60, priority: 'optional' },
+    { exerciseName: 'Back Squat', targetSets: '4-5', targetReps: '3-6', restSeconds: 180, priority: 'main' },
+    { exerciseName: 'Barbell Bench Press', targetSets: '4-5', targetReps: '3-6', restSeconds: 180, priority: 'main' },
+    { exerciseName: 'Chest-Supported Row', targetSets: '3-4', targetReps: '6-10', restSeconds: 90, priority: 'main' },
+    { exerciseName: 'Romanian Deadlift', targetSets: '2-3', targetReps: '6-10', restSeconds: 90, priority: 'support' },
+    { exerciseName: 'Leg Curl', targetSets: '2-3', targetReps: '10-15', restSeconds: 60, priority: 'optional' },
   ],
 };
 
-// Default Program B: Pull (Back, Biceps)
+// Default Program B
 export const programB: SeedTemplate = {
-  name: 'Program B - Pull',
+  name: 'Program B',
   exercises: [
-    { exerciseName: 'Deadlift', targetSets: '1', targetReps: '5', restSeconds: 180, priority: 'main' },
-    { exerciseName: 'Barbell Row', targetSets: '3', targetReps: '5', restSeconds: 120, priority: 'support' },
-    { exerciseName: 'Pull-up', targetSets: '3', targetReps: '8', restSeconds: 90, priority: 'support' },
-    { exerciseName: 'Face Pull', targetSets: '3', targetReps: '15', restSeconds: 60, priority: 'optional' },
-    { exerciseName: 'Bicep Curl', targetSets: '3', targetReps: '12', restSeconds: 60, priority: 'optional' },
-    { exerciseName: 'Hammer Curl', targetSets: '3', targetReps: '12', restSeconds: 60, priority: 'optional' },
+    { exerciseName: 'Trap Bar Deadlift', targetSets: '3-5', targetReps: '3-6', restSeconds: 180, priority: 'main' },
+    { exerciseName: 'Overhead Press', targetSets: '4', targetReps: '5-8', restSeconds: 180, priority: 'main' },
+    { exerciseName: 'Pull-ups', targetSets: '4', targetReps: '6-10', restSeconds: 90, priority: 'main' },
+    { exerciseName: 'Split Squat', targetSets: '2-3', targetReps: '8-12', restSeconds: 60, priority: 'support' },
+    { exerciseName: 'Ab Wheel', targetSets: '2-3', targetReps: '-', restSeconds: 60, priority: 'support' },
   ],
 };
 
-// Default Program C: Legs
+// Default Program C
 export const programC: SeedTemplate = {
-  name: 'Program C - Legs',
+  name: 'Program C',
   exercises: [
-    { exerciseName: 'Squat', targetSets: '3', targetReps: '5', restSeconds: 180, priority: 'main' },
-    { exerciseName: 'Romanian Deadlift', targetSets: '3', targetReps: '8', restSeconds: 120, priority: 'support' },
-    { exerciseName: 'Leg Curl', targetSets: '3', targetReps: '12', restSeconds: 60, priority: 'optional' },
-    { exerciseName: 'Leg Extension', targetSets: '3', targetReps: '12', restSeconds: 60, priority: 'optional' },
-    { exerciseName: 'Calf Raise', targetSets: '5', targetReps: '10', restSeconds: 60, priority: 'optional' },
-    { exerciseName: 'Hanging Leg Raise', targetSets: '3', targetReps: '12', restSeconds: 60, priority: 'optional' },
+    { exerciseName: 'Front Squat', targetSets: '3-4', targetReps: '5-8', restSeconds: 180, priority: 'main' },
+    { exerciseName: 'Incline Bench Press', targetSets: '3-4', targetReps: '6-10', restSeconds: 180, priority: 'main' },
+    { exerciseName: 'Barbell Row', targetSets: '3-4', targetReps: '8-12', restSeconds: 90, priority: 'main' },
+    { exerciseName: 'Hip Thrust', targetSets: '2-3', targetReps: '8-12', restSeconds: 60, priority: 'optional' },
   ],
 };
 
