@@ -1,0 +1,169 @@
+/* src/components/views/TodayView.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 24px 0;
+}
+
+.startButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.startButton {
+  width: 100%;
+}
+
+/* Template Picker */
+.templatePicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.templateList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 20px;
+}
+
+.templateButton {
+  width: 100%;
+}
+
+.emptyMessage {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 20px 0;
+}
+
+.cancelButton {
+  margin-top: 8px;
+}
+
+/* Session Header */
+.sessionHeader {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sessionTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 8px 0;
+}
+
+.sessionDate {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Exercises Container */
+.exercisesContainer {
+  margin-bottom: 20px;
+}
+
+.noExercises {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+/* Add Exercise Button */
+.addExerciseButton {
+  width: 100%;
+}
+
+/* Add Exercise Modal */
+.addExerciseModal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.addExerciseInput {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--surface-dark);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 16px;
+  margin-bottom: 16px;
+  transition: border-color 0.15s ease;
+}
+
+.addExerciseInput:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.addExerciseInput::placeholder {
+  color: var(--text-muted);
+}
+
+.addExerciseButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .sessionTitle {
+    font-size: 18px;
+  }
+
+  .sessionDate {
+    font-size: 13px;
+  }
+
+  .startButtons {
+    max-width: 100%;
+  }
+
+  .templateList {
+    max-width: 100%;
+  }
+}
