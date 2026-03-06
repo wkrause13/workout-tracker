@@ -2,8 +2,9 @@
 
 import { createContext, useContext, useCallback, useState, type ReactNode } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import type { AppState, Session, Template, Exercise, Settings } from '../types';
+import type { AppState, Session, Template, Exercise, Settings, TemplateExercise } from '../types';
 import { generateId } from '../utils/helpers';
+import { defaultExercises, defaultTemplates } from '../data/seedData';
 
 const STORAGE_KEY = 'compound-first-v2';
 
@@ -14,12 +15,51 @@ const defaultSettings: Settings = {
   assistanceRestSeconds: 90,
 };
 
-const initialState: AppState = {
-  exercises: [],
-  sessions: [],
-  templates: [],
-  settings: defaultSettings,
-};
+// Get initial state with seed data for first-time users
+function getInitialState(): AppState {
+  const now = new Date().toISOString();
+
+  // Seed exercises with IDs
+  const seededExercises: Exercise[] = defaultExercises.map(exercise => ({
+    id: generateId(),
+    name: exercise.name,
+    category: exercise.category,
+    muscleGroups: exercise.muscleGroups,
+    createdAt: now,
+  }));
+
+  // Create a map of exercise names to IDs for template references
+  const exerciseIdMap = new Map<string, string>();
+  seededExercises.forEach(exercise => {
+    exerciseIdMap.set(exercise.name, exercise.id);
+  });
+
+  // Seed templates with exercise references
+  const seededTemplates: Template[] = defaultTemplates.map(template => ({
+    id: generateId(),
+    name: template.name,
+    exercises: template.exercises.map(te => ({
+      exerciseId: exerciseIdMap.get(te.exerciseName) || generateId(),
+      exerciseName: te.exerciseName,
+      targetSets: te.targetSets,
+      targetReps: te.targetReps,
+      restSeconds: te.restSeconds,
+      priority: te.priority,
+      notes: te.notes,
+    } as TemplateExercise)),
+    createdAt: now,
+    updatedAt: now,
+  }));
+
+  return {
+    exercises: seededExercises,
+    sessions: [],
+    templates: seededTemplates,
+    settings: defaultSettings,
+  };
+}
+
+const initialState: AppState = getInitialState();
 
 interface AppContextType extends AppState {
   // Session actions
