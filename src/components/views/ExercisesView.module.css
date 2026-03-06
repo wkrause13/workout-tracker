@@ -1,0 +1,372 @@
+/* src/components/views/ExercisesView.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.searchInput {
+  width: 100%;
+}
+
+.categoryFilter {
+  display: flex;
+  gap: 8px;
+}
+
+.filterButton {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg-muted);
+  font-size: 13px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filterButton:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-active);
+}
+
+.filterButton.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filterButton:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  text-align: center;
+  gap: 16px;
+}
+
+.emptyMessage {
+  color: var(--fg-muted);
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Exercise Groups */
+.exerciseGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.exerciseGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.groupTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.groupCount {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 2px 8px;
+  border-radius: var(--radius);
+}
+
+/* Exercise List */
+.exerciseList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Exercise Card */
+.exerciseCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.cardContent {
+  padding: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.exerciseName {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0;
+  flex: 1;
+}
+
+.categoryBadge {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.categoryBadge.compound {
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+.categoryBadge.accessory {
+  background: rgba(136, 136, 136, 0.15);
+  color: var(--fg-muted);
+}
+
+.muscleGroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.muscleTag {
+  font-size: 12px;
+  color: var(--fg-muted);
+  background: var(--bg-elevated);
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.variationInfo {
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.variationName {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+/* Delete Confirmation */
+.deleteConfirm {
+  padding: 16px;
+  text-align: center;
+}
+
+.deleteConfirmText {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 4px 0;
+}
+
+.deleteConfirmHint {
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin: 0 0 16px 0;
+}
+
+.deleteConfirmActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.deleteConfirmButton {
+  background: var(--danger) !important;
+}
+
+/* Editor */
+.editor {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.editorTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 20px 0;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+.textField {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  font-size: 14px;
+  font-family: var(--font-body);
+  transition: border-color 0.15s ease;
+}
+
+.textField:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.textField::placeholder {
+  color: var(--fg-dim);
+}
+
+.selectField {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  font-size: 14px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.selectField:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.fieldHint {
+  font-size: 11px;
+  color: var(--fg-dim);
+  margin-top: 2px;
+}
+
+.inputWithDropdown {
+  position: relative;
+}
+
+/* Editor Actions */
+.editorActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .editor {
+    padding: 16px;
+  }
+
+  .categoryFilter {
+    flex-wrap: wrap;
+  }
+
+  .cardActions {
+    flex-direction: column;
+  }
+
+  .cardActions button {
+    width: 100%;
+  }
+
+  .deleteConfirmActions {
+    flex-direction: column;
+  }
+
+  .deleteConfirmActions button {
+    width: 100%;
+  }
+}
