@@ -1,0 +1,389 @@
+/* src/components/views/TemplatesView.module.css */
+
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  text-align: center;
+  gap: 16px;
+}
+
+.emptyMessage {
+  color: var(--fg-muted);
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Template List */
+.templateList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.templateCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.templateCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.templateCardHeader:hover {
+  background: var(--bg-elevated);
+}
+
+.templateInfo {
+  flex: 1;
+}
+
+.templateName {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 4px 0;
+}
+
+.templateMeta {
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.templateActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expandIcon {
+  font-size: 12px;
+  color: var(--fg-muted);
+  transition: transform 0.2s ease;
+}
+
+.expandIcon.expanded {
+  transform: rotate(180deg);
+}
+
+.templateCardExpanded {
+  border-top: 1px solid var(--border);
+  padding: 16px;
+  background: var(--bg-elevated);
+}
+
+.exercisePreviewList {
+  list-style: none;
+  margin: 0 0 16px 0;
+  padding: 0;
+}
+
+.exercisePreviewItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.exercisePreviewItem:last-child {
+  border-bottom: none;
+}
+
+.exercisePreviewName {
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.exercisePreviewDetails {
+  font-size: 12px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+}
+
+.templateCardActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Delete Confirmation */
+.deleteConfirm {
+  padding: 16px;
+  text-align: center;
+}
+
+.deleteConfirmText {
+  font-size: 14px;
+  color: var(--fg);
+  margin: 0 0 16px 0;
+}
+
+.deleteConfirmActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.deleteConfirmButton {
+  background: var(--danger) !important;
+}
+
+/* Editor */
+.editor {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.editorTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 20px 0;
+}
+
+.nameInput {
+  margin-bottom: 24px;
+}
+
+/* Exercises Section */
+.exercisesSection {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px 0;
+}
+
+.noExercises {
+  color: var(--fg-muted);
+  font-size: 14px;
+  text-align: center;
+  padding: 24px;
+  background: var(--bg-elevated);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+
+.exerciseList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.exerciseCard {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.exerciseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.exerciseNumber {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 4px 10px;
+  border-radius: var(--radius);
+}
+
+.removeButton {
+  font-size: 12px;
+  color: var(--danger);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: opacity 0.15s ease;
+}
+
+.removeButton:hover {
+  opacity: 0.8;
+}
+
+.exerciseFields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+.fieldRow {
+  display: flex;
+  gap: 12px;
+}
+
+.fieldRow .fieldGroup {
+  flex: 1;
+}
+
+.textField {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  font-size: 14px;
+  font-family: var(--font-body);
+  transition: border-color 0.15s ease;
+}
+
+.textField:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.textField::placeholder {
+  color: var(--fg-dim);
+}
+
+.selectField {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  font-size: 14px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.selectField:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.textArea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--fg);
+  font-size: 14px;
+  font-family: var(--font-body);
+  resize: vertical;
+  min-height: 60px;
+  transition: border-color 0.15s ease;
+}
+
+.textArea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.textArea::placeholder {
+  color: var(--fg-dim);
+}
+
+.inputWithDropdown {
+  position: relative;
+}
+
+.addExerciseButton {
+  width: 100%;
+}
+
+/* Editor Actions */
+.editorActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .editor {
+    padding: 16px;
+  }
+
+  .fieldRow {
+    flex-direction: column;
+  }
+
+  .templateCardActions {
+    flex-direction: column;
+  }
+
+  .templateCardActions button {
+    width: 100%;
+  }
+}
