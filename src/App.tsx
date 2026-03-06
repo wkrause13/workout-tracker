@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
 
-function App() {
-  const [count, setCount] = useState(0)
+import { AppProvider, useApp } from './context/AppContext';
+import { Layout } from './components/Layout';
+import { TodayView } from './components/views/TodayView';
+import './App.css';
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function AppContent() {
+  const { currentView } = useApp();
+
+  let content;
+  switch (currentView) {
+    case 'today':
+      content = <TodayView />;
+      break;
+    case 'history':
+      content = <div>History view coming soon...</div>;
+      break;
+    case 'exercises':
+      content = <div>Exercises view coming soon...</div>;
+      break;
+    case 'templates':
+      content = <div>Templates view coming soon...</div>;
+      break;
+    case 'settings':
+      content = <div>Settings view coming soon...</div>;
+      break;
+    default:
+      content = <TodayView />;
+  }
+
+  return <Layout>{content}</Layout>;
 }
 
-export default App
+function App() {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  );
+}
+
+export default App;
