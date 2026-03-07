@@ -1,0 +1,18 @@
+{
+  "name": "COMPOUND//FIRST",
+  "short_name": "Workout",
+  "description": "Offline-first workout tracking",
+  "start_url": "/workout-tracker/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/workout-tracker/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
