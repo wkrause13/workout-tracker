@@ -17,10 +17,13 @@
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text);
-  margin: 0 0 24px 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--fg);
+  margin: 0 0 28px 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .startButtons {
@@ -41,6 +44,18 @@
   flex-direction: column;
   align-items: center;
   padding-top: 40px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .templateList {
@@ -57,9 +72,11 @@
 }
 
 .emptyMessage {
-  color: var(--text-muted);
-  font-size: 14px;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
   margin: 20px 0;
+  letter-spacing: 0.05em;
 }
 
 .cancelButton {
@@ -71,19 +88,58 @@
   margin-bottom: 24px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.sessionHeader::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
 }
 
 .sessionTitle {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--fg);
   margin: 0 0 8px 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .sessionDate {
-  color: var(--text-muted);
-  font-size: 14px;
+  font-family: var(--font-mono);
+  color: var(--fg-muted);
+  font-size: 12px;
   margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.timerButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timerButton:hover {
+  background: var(--accent);
+  color: var(--bg);
 }
 
 /* Exercises Container */
@@ -92,53 +148,218 @@
 }
 
 .noExercises {
-  color: var(--text-muted);
+  font-family: var(--font-mono);
+  color: var(--fg-muted);
   text-align: center;
-  padding: 40px 20px;
-  background: var(--surface);
+  padding: 48px 24px;
+  background: var(--bg-card);
   border: 1px dashed var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  letter-spacing: 0.05em;
 }
 
 /* Add Exercise Button */
 .addExerciseButton {
   width: 100%;
+  border: 1px dashed var(--border);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.addExerciseButton:hover {
+  border-color: var(--accent);
+  background: rgba(200, 255, 0, 0.03);
 }
 
 /* Add Exercise Modal */
 .addExerciseModal {
-  background: var(--surface);
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 6px;
+  padding: 20px;
   margin-top: 12px;
+  position: relative;
+  animation: slideIn 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.addExerciseModal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
 }
 
 .addExerciseInput {
   width: 100%;
-  padding: 12px 14px;
-  background: var(--surface-dark);
+  padding: 14px 16px;
+  background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
+  border-radius: 4px;
+  color: var(--fg);
+  font-family: var(--font-body);
   font-size: 16px;
   margin-bottom: 16px;
-  transition: border-color 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .addExerciseInput:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.1);
 }
 
 .addExerciseInput::placeholder {
-  color: var(--text-muted);
+  color: var(--fg-dim);
+}
+
+.exercisePickerList {
+  max-height: 320px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.exerciseGroup {
+  margin-bottom: 16px;
+}
+
+.exerciseGroupLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0 0 8px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.exerciseOption {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.exerciseOption:hover:not(.disabled) {
+  border-color: var(--accent);
+  background: rgba(200, 255, 0, 0.03);
+}
+
+.exerciseOption.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.exerciseOptionName {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--fg);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.exerciseOptionMuscles {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.noResults {
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--fg-muted);
+}
+
+.noResults p {
+  margin: 0 0 12px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
 .addExerciseButtons {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+}
+
+/* Session Actions */
+.sessionActions {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.finishButton {
+  width: 100%;
+}
+
+.cancelWorkoutButton {
+  width: 100%;
+  color: var(--fg-muted);
+}
+
+.cancelWorkoutButton:hover {
+  color: var(--danger);
+}
+
+.cancelConfirm {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+}
+
+.cancelConfirmText {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-muted);
+  margin-bottom: 12px;
+}
+
+.cancelConfirmButtons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.discardButton {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.discardButton:hover {
+  filter: brightness(1.1);
 }
 
 /* Mobile Responsive */
@@ -148,15 +369,15 @@
   }
 
   .title {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .sessionTitle {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .sessionDate {
-    font-size: 13px;
+    font-size: 11px;
   }
 
   .startButtons {
@@ -165,5 +386,9 @@
 
   .templateList {
     max-width: 100%;
+  }
+
+  .addExerciseModal {
+    padding: 16px;
   }
 }

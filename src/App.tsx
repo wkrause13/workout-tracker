@@ -2,8 +2,14 @@
 
 import { AppProvider, useApp } from './context/AppContext';
 import { Layout } from './components/Layout';
-import { TodayView } from './components/views/TodayView';
-import { ExerciseDetailView } from './components/views/ExerciseDetailView';
+import {
+  TodayView,
+  HistoryView,
+  ExercisesView,
+  TemplatesView,
+  SettingsView,
+  ExerciseDetailView,
+} from './components/views';
 import './App.css';
 
 function AppContent() {
@@ -28,16 +34,16 @@ function AppContent() {
       content = <TodayView />;
       break;
     case 'history':
-      content = <div>History view coming soon...</div>;
+      content = <HistoryView />;
       break;
     case 'exercises':
-      content = <div>Exercises view coming soon...</div>;
+      content = <ExercisesView />;
       break;
     case 'templates':
-      content = <div>Templates view coming soon...</div>;
+      content = <TemplatesView />;
       break;
     case 'settings':
-      content = <div>Settings view coming soon...</div>;
+      content = <SettingsView />;
       break;
     default:
       content = <TodayView />;

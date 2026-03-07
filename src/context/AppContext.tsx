@@ -118,6 +118,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSelectedExercise(null);
   }, []);
 
+  // Helper to get last completed sets for an exercise, or default to 4 empty sets
+  const getLastCompletedSets = useCallback((exerciseId: string) => {
+    const completedSessions = state.sessions
+      .filter(s => s.completedAt)
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+    for (const session of completedSessions) {
+      const exercise = session.exercises.find(e => e.exerciseId === exerciseId);
+      if (exercise && exercise.sets.some(s => s.weight && s.reps)) {
+        return exercise.sets.filter(s => s.weight && s.reps);
+      }
+    }
+    // Default to 4 empty sets if no history
+    return [
+      { weight: null, reps: null },
+      { weight: null, reps: null },
+      { weight: null, reps: null },
+      { weight: null, reps: null },
+    ];
+  }, [state.sessions]);
+
   // Session actions
   const startSession = useCallback((templateId?: string): string => {
     const sessionId = generateId();
@@ -126,12 +147,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const newSession: Session = {
       id: sessionId,
       date: new Date().toISOString(),
-      exercises: template ? template.exercises.map(te => ({
-        exerciseId: te.exerciseId || generateId(),
-        exerciseName: te.exerciseName,
-        sets: [],
-        notes: te.notes,
-      })) : [],
+      exercises: template ? template.exercises.map(te => {
+        const exerciseId = te.exerciseId || generateId();
+        const previousSets = getLastCompletedSets(exerciseId);
+        return {
+          exerciseId,
+          exerciseName: te.exerciseName,
+          sets: previousSets,
+          notes: te.notes,
+        };
+      }) : [],
       templateId,
       templateName: template?.name,
     };
@@ -143,7 +168,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }));
 
     return sessionId;
-  }, [state.templates, setState]);
+  }, [state.templates, setState, getLastCompletedSets]);
 
   const updateSession = useCallback((session: Session) => {
     setState(prev => ({
