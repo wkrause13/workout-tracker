@@ -279,7 +279,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         sessions: Array.isArray(data.sessions) ? data.sessions : [],
         templates: Array.isArray(data.templates) ? data.templates : [],
         settings: {
-          theme: (data.settings?.theme === 'light' || data.settings?.theme === 'dark')
+          theme: (data.settings?.theme === 'light' || data.settings?.theme === 'dark' || data.settings?.theme === 'eink')
             ? data.settings.theme
             : defaultSettings.theme,
           units: (data.settings?.units === 'lbs' || data.settings?.units === 'kg')

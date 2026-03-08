@@ -16,8 +16,17 @@ export function Header() {
   const { currentView, setCurrentView, settings, updateSettings } = useApp();
 
   const toggleTheme = () => {
-    const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
+    const themes: Array<'dark' | 'light' | 'eink'> = ['dark', 'light', 'eink'];
+    const currentIndex = themes.indexOf(settings.theme);
+    const newTheme = themes[(currentIndex + 1) % themes.length];
     updateSettings({ theme: newTheme });
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
+
+  const themeIcon = {
+    dark: '☀',
+    light: '☾',
+    eink: '▣'
   };
 
   return (
@@ -47,9 +56,9 @@ export function Header() {
           size="sm"
           onClick={toggleTheme}
           className={styles.themeToggle}
-          aria-label="Toggle theme"
+          aria-label="Cycle theme"
         >
-          {settings.theme === 'dark' ? '\u2600' : '\u263E'}
+          {themeIcon[settings.theme]}
         </Button>
       </div>
     </header>

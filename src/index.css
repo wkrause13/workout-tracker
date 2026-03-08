@@ -34,6 +34,22 @@
   --border-active: #cccccc;
 }
 
+/* High contrast e-ink theme */
+[data-theme="eink"] {
+  --bg: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --fg: #000000;
+  --fg-muted: #000000;
+  --fg-dim: #333333;
+  --accent: #000000;
+  --accent-dim: #333333;
+  --accent-glow: transparent;
+  --danger: #000000;
+  --border: #000000;
+  --border-active: #000000;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -65,6 +81,11 @@ body::before {
   opacity: 0.3;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Disable grid pattern for e-ink */
+[data-theme="eink"] body::before {
+  display: none;
 }
 
 .display-font {

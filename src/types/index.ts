@@ -51,7 +51,7 @@ export interface Template {
 }
 
 export interface Settings {
-  theme: 'dark' | 'light';
+  theme: 'dark' | 'light' | 'eink';
   units: 'lbs' | 'kg';
   compoundRestSeconds: number;
   assistanceRestSeconds: number;

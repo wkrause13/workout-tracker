@@ -18,9 +18,17 @@ export function SettingsView() {
 
   // Theme toggle
   const handleThemeToggle = () => {
-    const newTheme = settings.theme === 'dark' ? 'light' : 'dark';
+    const themes: Array<'dark' | 'light' | 'eink'> = ['dark', 'light', 'eink'];
+    const currentIndex = themes.indexOf(settings.theme);
+    const newTheme = themes[(currentIndex + 1) % themes.length];
     updateSettings({ theme: newTheme });
     document.documentElement.setAttribute('data-theme', newTheme);
+  };
+
+  const themeNames: Record<string, string> = {
+    dark: 'Dark',
+    light: 'Light',
+    eink: 'E-Ink'
   };
 
   // Units toggle
@@ -123,15 +131,15 @@ export function SettingsView() {
           <div className={styles.settingLabel}>
             <span className={styles.settingName}>Theme</span>
             <span className={styles.settingDescription}>
-              Current: {settings.theme === 'dark' ? 'Dark' : 'Light'}
+              Current: {themeNames[settings.theme]}
             </span>
           </div>
           <Button
             variant="secondary"
             onClick={handleThemeToggle}
-            aria-label={`Switch to ${settings.theme === 'dark' ? 'light' : 'dark'} theme`}
+            aria-label="Cycle theme"
           >
-            {settings.theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+            Cycle Theme
           </Button>
         </div>
 
