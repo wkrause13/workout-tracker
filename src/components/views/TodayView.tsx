@@ -6,12 +6,17 @@ import type { SessionExercise, Exercise } from '../../types';
 import { ExerciseCard } from '../session/ExerciseCard';
 import { RestTimer } from '../session/RestTimer';
 import { Button } from '../common/Button';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import styles from './TodayView.module.css';
 
+const getTimestampMs = () => performance.timeOrigin + performance.now();
+
 interface ActiveTimer {
+  id: string;
   exerciseName: string;
   exerciseId: string;
   duration: number;
+  startedAt: number;
 }
 
 export function TodayView() {
@@ -31,7 +36,7 @@ export function TodayView() {
   const [showTemplatePicker, setShowTemplatePicker] = useState(false);
   const [showAddExercise, setShowAddExercise] = useState(false);
   const [exerciseSearch, setExerciseSearch] = useState('');
-  const [activeTimer, setActiveTimer] = useState<ActiveTimer | null>(null);
+  const [activeTimer, setActiveTimer] = useLocalStorage<ActiveTimer | null>('active-rest-timer', null);
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   const currentSession = getCurrentSession();
@@ -227,9 +232,11 @@ export function TodayView() {
       const duration = isCompound ? settings.compoundRestSeconds : settings.assistanceRestSeconds;
 
       setActiveTimer({
+        id: crypto.randomUUID(),
         exerciseName: updatedExercise.exerciseName,
         exerciseId: updatedExercise.exerciseId,
         duration,
+        startedAt: getTimestampMs(),
       });
     }
   };
@@ -241,9 +248,11 @@ export function TodayView() {
 
   const handleStartTimer = () => {
     setActiveTimer({
+      id: crypto.randomUUID(),
       exerciseName: 'Manual Timer',
       exerciseId: '',
       duration: settings.compoundRestSeconds,
+      startedAt: getTimestampMs(),
     });
   };
 
@@ -293,8 +302,10 @@ export function TodayView() {
       {/* Rest Timer */}
       {activeTimer && (
         <RestTimer
+          timerId={activeTimer.id}
           duration={activeTimer.duration}
           exerciseName={activeTimer.exerciseName}
+          startedAt={activeTimer.startedAt}
           onDismiss={() => setActiveTimer(null)}
         />
       )}
