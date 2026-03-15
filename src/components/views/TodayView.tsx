@@ -1,6 +1,6 @@
 // src/components/views/TodayView.tsx
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import type { SessionExercise, Exercise } from '../../types';
 import { ExerciseCard } from '../session/ExerciseCard';
@@ -38,8 +38,36 @@ export function TodayView() {
   const [exerciseSearch, setExerciseSearch] = useState('');
   const [activeTimer, setActiveTimer] = useLocalStorage<ActiveTimer | null>('active-rest-timer', null);
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const exerciseCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const autoScrolledSessionIdRef = useRef<string | null>(null);
 
   const currentSession = getCurrentSession();
+
+  useEffect(() => {
+    if (!currentSession) {
+      autoScrolledSessionIdRef.current = null;
+      return;
+    }
+
+    if (autoScrolledSessionIdRef.current === currentSession.id) {
+      return;
+    }
+
+    const lastCompletedExerciseIndex = currentSession.exercises
+      .map(exercise => exercise.sets.some(set => set.weight && set.reps))
+      .lastIndexOf(true);
+
+    autoScrolledSessionIdRef.current = currentSession.id;
+
+    if (lastCompletedExerciseIndex === -1) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      const targetExercise = exerciseCardRefs.current[lastCompletedExerciseIndex];
+      targetExercise?.scrollIntoView({ behavior: 'auto', block: 'center' });
+    });
+  }, [currentSession]);
 
   // Get the last completed sets for an exercise, or default to 4 empty sets
   const getLastCompletedSets = (exerciseId: string) => {
@@ -289,12 +317,18 @@ export function TodayView() {
           <p className={styles.noExercises}>No exercises yet. Add one to get started!</p>
         ) : (
           currentSession.exercises.map((exercise, index) => (
-            <ExerciseCard
-              key={exercise.exerciseId}
-              exercise={exercise}
-              onUpdate={(updated) => handleUpdateExercise(index, updated)}
-              onRemove={() => handleRemoveExercise(index)}
-            />
+            <div
+              key={`${exercise.exerciseId}-${index}`}
+              ref={(element) => {
+                exerciseCardRefs.current[index] = element;
+              }}
+            >
+              <ExerciseCard
+                exercise={exercise}
+                onUpdate={(updated) => handleUpdateExercise(index, updated)}
+                onRemove={() => handleRemoveExercise(index)}
+              />
+            </div>
           ))
         )}
       </div>
