@@ -4,6 +4,7 @@ import { createContext, useContext, useCallback, useState, type ReactNode } from
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import type { AppState, Session, Template, Exercise, Settings, TemplateExercise } from '../types';
 import { generateId } from '../utils/helpers';
+import { getCompletedSets } from '../utils/sessionSets';
 import { defaultExercises, defaultTemplates } from '../data/seedData';
 
 // Storage key - also referenced in src/components/views/SettingsView.tsx
@@ -125,9 +126,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     for (const session of completedSessions) {
-      const exercise = session.exercises.find(e => e.exerciseId === exerciseId);
-      if (exercise && exercise.sets.some(s => s.weight && s.reps)) {
-        return exercise.sets.filter(s => s.weight && s.reps);
+      const exercise = [...session.exercises].reverse().find(e => e.exerciseId === exerciseId);
+      if (exercise) {
+        const completedSets = getCompletedSets(exercise);
+        if (completedSets.length > 0) {
+          return completedSets;
+        }
       }
     }
     // Default to 4 empty sets if no history

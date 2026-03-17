@@ -7,6 +7,7 @@ import { ExerciseCard } from '../session/ExerciseCard';
 import { RestTimer } from '../session/RestTimer';
 import { Button } from '../common/Button';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { getCompletedSetCount, getCompletedSets } from '../../utils/sessionSets';
 import styles from './TodayView.module.css';
 
 const getTimestampMs = () => performance.timeOrigin + performance.now();
@@ -76,13 +77,15 @@ export function TodayView() {
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     for (const session of completedSessions) {
-      const exercise = session.exercises.find(e => e.exerciseId === exerciseId);
-      if (exercise && exercise.sets.some(s => s.weight && s.reps)) {
-        // Return sets with values, filtering out empty trailing sets
-        const filledSets = exercise.sets.filter(s => s.weight && s.reps);
-        return filledSets;
+      const exercise = [...session.exercises].reverse().find(e => e.exerciseId === exerciseId);
+      if (exercise) {
+        const completedSets = getCompletedSets(exercise);
+        if (completedSets.length > 0) {
+          return completedSets;
+        }
       }
     }
+
     // Default to 4 empty sets if no history
     return [
       { weight: null, reps: null },
@@ -245,8 +248,8 @@ export function TodayView() {
     const prevExercise = currentSession.exercises[index];
 
     // Count filled sets before and after
-    const prevFilledCount = prevExercise.sets.filter(s => s.weight && s.reps).length;
-    const newFilledCount = updatedExercise.sets.filter(s => s.weight && s.reps).length;
+    const prevFilledCount = getCompletedSetCount(prevExercise);
+    const newFilledCount = getCompletedSetCount(updatedExercise);
 
     // Update the session
     const updatedExercises = [...currentSession.exercises];
